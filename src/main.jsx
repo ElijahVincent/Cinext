@@ -97,6 +97,7 @@ const initialWatched = ["No Tail to Tell","The Remarried Empress","Perfect Crown
 const STORE = "dramaverse-status-v1";
 const PROGRESS_STORE = "dramaverse-progress-v1";
 const FAV_STORE = "dramaverse-favorites-v1";
+const YEAR_OPTIONS = ["2026", "2025", "2024", "2023"];
 
 function App() {
   const [active, setActive] = useState(0);
@@ -104,7 +105,7 @@ function App() {
     try { return JSON.parse(localStorage.getItem(STORE) || "{}"); } catch { return {}; }
   });
   const [query, setQuery] = useState("");
-  const [year, setYear] = useState("All");
+  const [year, setYear] = useState("2026");
   const [filter, setFilter] = useState("All");
   const [paused, setPaused] = useState(false);
   const [showAll, setShowAll] = useState(false);
@@ -155,7 +156,7 @@ function App() {
     <div className="ambient ambient-one"></div><div className="ambient ambient-two"></div>
     <header className="topbar">
       <a className="brand" href="#"><span className="brand-mark">C</span><span>CINE<span className="brand-light">XT</span></span></a>
-      <div className="top-links"><span>YOUR PERSONAL DRAMA UNIVERSE</span><span className="live-dot"></span><span>2023 — 2026</span></div>
+      <div className="top-links"><span>YOUR PERSONAL DRAMA UNIVERSE</span><span className="live-dot"></span><button className="year-wheel" type="button" aria-label={`Selected year ${year}. Scroll to change year`} title="Scroll to change year" onClick={() => setYear("2026")} onWheelCapture={e => { e.preventDefault(); e.stopPropagation(); const current = YEAR_OPTIONS.indexOf(year); const next = Math.max(0, current < 0 ? 0 : Math.min(YEAR_OPTIONS.length - 1, current + (e.deltaY > 0 ? 1 : -1))); setYear(YEAR_OPTIONS[next]); }} onKeyDown={e => { if (e.key === "ArrowDown" || e.key === "ArrowUp") { e.preventDefault(); const current = YEAR_OPTIONS.indexOf(year); const step = e.key === "ArrowDown" ? 1 : -1; setYear(YEAR_OPTIONS[(Math.max(0, current) + step + YEAR_OPTIONS.length) % YEAR_OPTIONS.length]); } }}>{year === "All" ? "2026" : year}</button></div>
     </header>
 
     <section className="intro-row">
