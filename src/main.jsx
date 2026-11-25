@@ -88,15 +88,13 @@ function App() {
   const move = (direction) => setActive(v => (v + direction + dramas.length) % dramas.length);
   const setCurrentStatus = (value) => setStatus(old => ({...old, [current.title]: value}));
 
-  const cardStyle = (item, offset) => {
-    const index = (active + offset + dramas.length) % dramas.length;
-    const d = dramas[index];
+  const cardStyle = (d, index, offset) => {
     const distance = Math.abs(offset);
     return {
       "--offset": offset,
       "--distance": distance,
       "--poster": `url("${posters[index % posters.length]}")`,
-      "--accent": d.mood === "royal" ? "#c99b58" : d.mood === "fantasy" || d.mood === "epic" ? "#9a70ff" : d.mood === "dark" ? "#e36b76" : d.mood === "action" ? "#e58b4f" : "#df83b9"
+      "--accent": d.mood === "royal" ? "#4b83b5" : d.mood === "fantasy" || d.mood === "epic" ? "#668bd0" : d.mood === "dark" ? "#547b9e" : d.mood === "action" ? "#397eaa" : "#719ec7"
     };
   };
 
@@ -116,10 +114,11 @@ function App() {
       <div className="showcase-glow"></div>
       <div className="carousel-top"><span>01 / FEATURED COLLECTION</span><span className="auto-label"><i></i> {paused ? "PAUSED" : "AUTO PLAY"}</span></div>
       <div className="carousel-stage">
-        {[-3,-2,-1,0,1,2,3].map(offset => {
-          const index = (active + offset + dramas.length) % dramas.length;
-          const d = dramas[index];
-          return <button key={offset} className={`poster-card ${offset === 0 ? "is-active" : ""}`} style={cardStyle(d,offset)} onClick={() => {setActive(index);setPaused(true);}} aria-label={`Select ${d.title}`}>
+        {dramas.map((d,index) => {
+          let offset = (index - active + dramas.length) % dramas.length;
+          if (offset > dramas.length / 2) offset -= dramas.length;
+          if (Math.abs(offset) > 3) return null;
+          return <button key={d.title} className={`poster-card ${offset === 0 ? "is-active" : ""}`} style={cardStyle(d,index,offset)} onClick={() => {setActive(index);setPaused(true);}} aria-label={`Select ${d.title}`}>
             <div className="poster-image"></div><div className="poster-vignette"></div>
             <div className="poster-top"><span>DV ORIGINALS</span><b>{String(d.year).slice(2)}</b></div>
             <div className="poster-bottom"><span className="poster-tag">{d.tag}</span><strong>{d.title}</strong><small>{d.genre.split(" · ").slice(0,2).join("  /  ")}</small></div>
