@@ -80,3 +80,37 @@ html,body,#root{min-height:100%;background:#eaf5ff!important;color:#18344d!impor
 .carousel-stage{touch-action:pan-y;user-select:none;-webkit-user-select:none}
 .poster-card{-webkit-tap-highlight-color:transparent}
 @media(max-width:760px){.favorite-filter{flex:1}.episode-control{width:100%}.episode-control input{width:82px}.feature-actions{gap:10px}.carousel-stage{overflow:hidden}}
+
+
+/* Glassmorphism drama information experience */
+.view-details-button{display:flex;align-items:center;justify-content:space-between;gap:20px;border:1px solid rgba(255,255,255,.68);border-radius:9px;padding:11px 13px;background:linear-gradient(120deg,rgba(255,255,255,.82),rgba(221,241,255,.48));color:#246b98;font-size:9px;font-weight:800;letter-spacing:.12em;box-shadow:0 8px 24px rgba(47,111,153,.09);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.view-details-button:hover,.card-details-link:hover{background:#d8efff;color:#155e8c}
+.card-details-link{border:0;background:transparent;color:#347eae;font-size:8px;font-weight:800;letter-spacing:.1em;padding:1px 0;text-align:left}
+.details-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:22px;background:rgba(13,36,54,.48);backdrop-filter:blur(13px);-webkit-backdrop-filter:blur(13px);animation:glassFade .22s ease-out}
+.details-modal{position:relative;width:min(720px,100%);max-height:min(90vh,900px);overflow:auto;border:1px solid rgba(255,255,255,.72);border-radius:22px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(229,244,255,.72));box-shadow:0 30px 100px rgba(12,48,75,.35),inset 0 1px rgba(255,255,255,.9);backdrop-filter:blur(28px) saturate(145%);-webkit-backdrop-filter:blur(28px) saturate(145%);color:#183b56;animation:glassRise .32s cubic-bezier(.2,.8,.2,1)}
+.details-close{position:absolute;z-index:3;right:15px;top:15px;width:36px;height:36px;border:1px solid rgba(255,255,255,.65);border-radius:50%;background:rgba(255,255,255,.52);color:#234c68;font-size:24px;line-height:1;cursor:pointer;backdrop-filter:blur(12px)}
+.details-art{height:270px;position:relative;overflow:hidden;border-radius:21px 21px 0 0;background-image:var(--detail-poster);background-size:cover;background-position:center 35%}
+.details-art-shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(7,24,39,.8),rgba(7,24,39,.35) 65%,rgba(7,24,39,.12)),linear-gradient(0deg,rgba(7,24,39,.65),transparent 70%)}
+.details-eyebrow{position:absolute;left:30px;top:27px;color:rgba(255,255,255,.8);font-size:8px;font-weight:700;letter-spacing:.2em}
+.details-art-title{position:absolute;left:30px;right:55px;bottom:27px;color:#fff}
+.details-art-title>span{font-size:8px;letter-spacing:.18em;color:#bde6ff;font-weight:800}
+.details-art-title h2{font-family:'Playfair Display',serif;font-size:clamp(32px,6vw,48px);line-height:1.02;margin:8px 0}
+.details-art-title p{font-size:11px;color:rgba(255,255,255,.82);margin:0;line-height:1.6}
+.details-art-title i{font-style:normal;padding:0 5px;color:#9dd7fa}
+.details-content{padding:25px 30px 23px}
+.details-section-title{display:flex;justify-content:space-between;align-items:center;color:#347eae;font-size:9px;font-weight:800;letter-spacing:.17em}
+.details-year{border:1px solid rgba(57,143,200,.28);background:rgba(255,255,255,.55);padding:5px 9px;border-radius:20px;letter-spacing:.04em}
+.details-synopsis{font-size:13px;line-height:1.85;color:#476981;margin:13px 0 22px;max-width:620px}
+.details-facts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.details-facts>div{min-width:0;padding:13px 14px;border:1px solid rgba(255,255,255,.82);border-radius:12px;background:rgba(255,255,255,.48);box-shadow:0 5px 18px rgba(48,102,139,.045)}
+.details-facts span{display:block;color:#7894a8;font-size:8px;font-weight:800;letter-spacing:.13em;margin-bottom:7px}
+.details-facts strong{display:block;color:#234a66;font-size:11px;line-height:1.55}
+.details-modal-actions{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin-top:20px}
+.details-modal-actions>label{display:flex;flex-direction:column;gap:7px;color:#68869b;font-size:8px;font-weight:800;letter-spacing:.1em;flex:1;min-width:130px}
+.details-modal-actions select,.details-modal-actions input{width:100%;min-width:0;border:1px solid rgba(53,113,153,.23);border-radius:8px;background:rgba(255,255,255,.75);color:#23445d;padding:10px;font:inherit;font-size:10px;letter-spacing:normal}
+.details-modal-actions .favorite-toggle{min-height:37px}
+.details-note{font-size:9px;color:#8aa2b3;margin:17px 0 0}
+@keyframes glassFade{from{opacity:0}to{opacity:1}}
+@keyframes glassRise{from{opacity:0;transform:translateY(14px) scale(.985)}to{opacity:1;transform:translateY(0) scale(1)}}
+@media(max-width:600px){.details-backdrop{padding:10px;align-items:center}.details-modal{max-height:94vh;border-radius:17px}.details-art{height:220px;border-radius:16px 16px 0 0}.details-eyebrow{left:19px;top:20px}.details-art-title{left:19px;bottom:20px}.details-content{padding:20px 18px}.details-facts{gap:8px}.details-facts>div{padding:11px}.details-facts strong{font-size:10px}.details-modal-actions{gap:8px}.details-modal-actions .favorite-toggle{width:100%}}
+@media(prefers-reduced-motion:reduce){.details-backdrop,.details-modal{animation:none!important}}
