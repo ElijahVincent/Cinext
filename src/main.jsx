@@ -89,7 +89,7 @@ const posterOverrides = {
   "The Story of Park's Marriage Contract": "https://s3.cosmopolitan.co.id/1703029460.webp",
   "Island": "https://a.ksd-i.com/a/2023-03-11/146380-967515.jpeg",
   "My Demon": "https://s1.afisha.ru/mediastorage/30/d8/78bed02352ba4039ad8ac814d830.jpg",
-  "See You in My 19th Life": "https://cdns.klimg.com/kapanlagi.com/p/seeu19klymv5byja3mwe5njctnjdhzs00zmjmlwe.jpg",
+  "See You in My 19th Life": "https://0.soompi.io/wp-content/uploads/2023/05/16005447/See-You-In-My-19th-Life-1-1.jpeg",
   "If Wishes Could Kill": "https://assets.gadgets360cdn.com/pricee/assets/product/202604/If_Wishes_Could_Kill_1_1775543723.jpg",
   "The WONDERfools": "https://images.ctfassets.net/4cd45et68cgf/C2sTxgyjJ9Ryrp6AIYZ58/4b832282de14b21060c447c3ec724fd7/en_us_wdf_main_date_announcement_ka_vertical_27x40_rgb_predate_1.jpg?w=1200"
 };
