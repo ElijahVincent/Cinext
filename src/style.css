@@ -117,3 +117,59 @@ html,body,#root{min-height:100%;background:#eaf5ff!important;color:#18344d!impor
 
 /* Episode totals shown as binge-planning metadata in library cards */
 .mini-episode-count{display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;color:#347eae;background:rgba(215,237,252,.72);border:1px solid rgba(53,113,153,.2);border-radius:6px;padding:5px 7px;font-size:8px;font-weight:700;letter-spacing:.06em}
+
+
+/* CINEXT brand refresh — Burgundy Cinema */
+:root{
+  color:#F0E8D8;
+  background:#100F12;
+  --muted:#B9AFA6;
+  --red:#780000;
+  --line:rgba(240,232,216,.12);
+}
+body{background:#100F12;color:#F0E8D8}
+.app-shell{background:radial-gradient(ellipse at 50% 30%,#32151B 0,#191317 34%,#100F12 72%)}
+.ambient-one{background:#780000;opacity:.2}
+.ambient-two{background:#003048;opacity:.13}
+.brand{color:#F0E8D8}
+.brand-mark,.footer-brand .brand-mark{background:#780000;color:#F0E8D8}
+.brand-light{color:#B9AFA6}
+.top-links{color:#B9AFA6}
+.live-dot,.auto-label i{background:#A32635;box-shadow:0 0 12px rgba(163,38,53,.8)}
+.kicker{color:#C47A7D}
+.intro-row h1 em{color:#D2A0A0}
+.stats-card{background:rgba(240,232,216,.035);border-color:var(--line)}
+.stats-card span,.stats-card small,.intro-copy,.feature-copy p{color:#B9AFA6}
+.progress-track{background:#39252A}
+.progress-track span{background:#780000}
+.showcase-glow{background:radial-gradient(ellipse,rgba(120,0,0,.38) 0,rgba(120,0,0,.16) 40%,transparent 72%)}
+.poster-card.is-active{box-shadow:0 20px 65px rgba(0,0,0,.7),0 0 35px rgba(120,0,0,.25)}
+.poster-tag{color:#E2B7A8}
+.carousel-controls button:hover{background:#780000;border-color:#780000}
+.carousel-progress{background:#3A292D}
+.carousel-progress span{background:#A32635}
+.featured-details{border-color:var(--line)}
+.year-pill{border-color:rgba(163,38,53,.55);color:#D9A5A5}
+.feature-actions label{color:#B9AFA6}
+.feature-actions select,.library-card-info select,.status-filter{background:#211A1E;border-color:#49343A;color:#F0E8D8}
+.details-next{background:#780000;color:#F0E8D8}
+.details-next:hover{background:#A32635}
+.library-heading h2 span{color:#C47A7D}
+.library-count{color:#B9AFA6}
+.search-box{border-color:#49343A;background:#191518}
+.search-box span{color:#C47A7D}
+.search-box input{color:#F0E8D8}
+.year-filters button{color:#B9AFA6}
+.year-filters button.selected,.year-filters button:hover{background:#321A20;border-color:#78404A;color:#F0E8D8}
+.library-card{background:rgba(240,232,216,.035);border-color:var(--line)}
+.library-card:hover{border-color:rgba(163,38,53,.65)}
+.library-card-info small{color:#B9AFA6}
+.mini-episode-count{background:rgba(120,0,0,.16);border-color:rgba(163,38,53,.35);color:#E2B7A8}
+.load-more{border-color:#78404A;background:#211519;color:#E2B7A8}
+.no-results{color:#B9AFA6;border-color:#49343A}
+footer{border-color:var(--line);color:#8F8580}
+.year-wheel{color:#C47A7D}
+.year-wheel:hover,.year-wheel:focus,.year-wheel:focus-visible{color:#F0E8D8;text-shadow:0 0 7px rgba(196,122,125,.7),0 0 16px rgba(240,232,216,.35)}
+@media(hover:hover){
+  .details-next:hover,.load-more:hover{filter:brightness(1.12)}
+}
