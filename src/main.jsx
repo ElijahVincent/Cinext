@@ -154,8 +154,8 @@ function App() {
   return <main className="app-shell">
     <div className="ambient ambient-one"></div><div className="ambient ambient-two"></div>
     <header className="topbar">
-      <a className="brand" href="#"><span className="brand-mark">D</span><span>DRAMA<span className="brand-light">VERSE</span></span></a>
-      <div className="top-links"><span>YOUR PERSONAL K-DRAMA UNIVERSE</span><span className="live-dot"></span><span>2023 — 2026</span></div>
+      <a className="brand" href="#"><span className="brand-mark">C</span><span>CINE<span className="brand-light">XT</span></span></a>
+      <div className="top-links"><span>YOUR PERSONAL DRAMA UNIVERSE</span><span className="live-dot"></span><span>2023 — 2026</span></div>
     </header>
 
     <section className="intro-row">
@@ -199,7 +199,7 @@ function App() {
         <button className="details-close" onClick={()=>setDetailsOpen(false)} aria-label="Close details">×</button>
         <div className="details-art" style={{"--detail-poster":`url("${posterOverrides[current.title] || posters[active % posters.length]}")`}}>
           <div className="details-art-shade"></div>
-          <span className="details-eyebrow">DRAMAVERSE • DRAMA GUIDE</span>
+          <span className="details-eyebrow">CINEXT • DRAMA GUIDE</span>
           <div className="details-art-title"><span>{current.tag}</span><h2 id="details-title">{current.title}</h2><p>{current.year} <i>•</i> {current.genre}</p></div>
         </div>
         <div className="details-content">
