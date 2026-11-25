@@ -115,6 +115,7 @@ function App() {
   const [touchStart, setTouchStart] = useState(null);
   const [mobileOnly, setMobileOnly] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
+  const [brokenPosters, setBrokenPosters] = useState([]);
 
   const visible = useMemo(() => dramas.filter(d => {
     const s = status[d.title] || "Want to watch";
@@ -123,6 +124,17 @@ function App() {
       (d.title.toLowerCase().includes(query.toLowerCase()) || d.genre.toLowerCase().includes(query.toLowerCase()));
   }), [query, year, filter, status, mobileOnly, favorites]);
 
+  useEffect(() => {
+    const checks = dramas.map(d => new Promise(resolve => {
+      const image = new Image();
+      image.onload = () => resolve(null);
+      image.onerror = () => resolve(d.title);
+      image.src = posterOverrides[d.title] || posters[dramas.indexOf(d) % posters.length];
+    }));
+    let active = true;
+    Promise.all(checks).then(results => { if (active) setBrokenPosters(results.filter(Boolean)); });
+    return () => { active = false; };
+  }, []);
   useEffect(() => { localStorage.setItem(STORE, JSON.stringify(status)); }, [status]);
   useEffect(() => { localStorage.setItem(FAV_STORE, JSON.stringify(favorites)); }, [favorites]);
   useEffect(() => { localStorage.setItem(PROGRESS_STORE, JSON.stringify(progress)); }, [progress]);
@@ -142,6 +154,10 @@ function App() {
   const setEpisodeProgress = (title, value) => setProgress(old => ({...old, [title]: Math.max(0, Math.min(999, Number(value) || 0))}));
   const swipeStart = (e) => setTouchStart(e.touches[0].clientX);
   const swipeEnd = (e) => { if (touchStart === null) return; const delta=e.changedTouches[0].clientX-touchStart; if(Math.abs(delta)>45) { move(delta<0?1:-1); setPaused(true); } setTouchStart(null); };
+
+  const posterValue = (d, index) => brokenPosters.includes(d.title)
+    ? "linear-gradient(145deg, #18364c, #315f7d 48%, #101c2c)"
+    : `url("${posterOverrides[d.title] || posters[index % posters.length]}")`;
 
   const cardStyle = (d, index, offset) => {
     const distance = Math.abs(offset);
@@ -192,7 +208,7 @@ function App() {
     <section className="library">
       <div className="library-heading"><div><p className="kicker">THE FULL COLLECTION</p><h2>Explore the library<span>.</span></h2></div><div className="library-count">{visible.length} TITLES FOUND</div></div>
       <div className="filters"><div className="search-box"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search titles or genres..."/></div><div className="year-filters">{["All","2026","2025","2024","2023"].map(y=><button className={year===y?"selected":""} onClick={()=>setYear(y)} key={y}>{y}</button>)}</div><select className="status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option>All</option><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><button className={mobileOnly?"favorite-filter selected":"favorite-filter"} onClick={()=>setMobileOnly(v=>!v)}>♥ FAVOURITES</button></div>
-      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><button className="card-details-link" onClick={()=>{setActive(dramas.indexOf(d));setDetailsOpen(true);}}>VIEW DETAILS ↗</button><div className="library-card-tools"><button className={favorites.includes(d.title)?"mini-favorite active":"mini-favorite"} onClick={()=>toggleFavorite(d.title)} aria-label="Toggle favourite">{favorites.includes(d.title)?"♥":"♡"}</button><span className="mini-episode-count" aria-label={d.episodes === "TBA" ? "Episode count to be announced" : `${d.episodes} episodes`}>{d.episodes === "TBA" ? "EPISODES TBA" : `${d.episodes} EPISODES`}</span></div><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
+      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":posterValue(d,dramas.indexOf(d))}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><button className="card-details-link" onClick={()=>{setActive(dramas.indexOf(d));setDetailsOpen(true);}}>VIEW DETAILS ↗</button><div className="library-card-tools"><button className={favorites.includes(d.title)?"mini-favorite active":"mini-favorite"} onClick={()=>toggleFavorite(d.title)} aria-label="Toggle favourite">{favorites.includes(d.title)?"♥":"♡"}</button><span className="mini-episode-count" aria-label={d.episodes === "TBA" ? "Episode count to be announced" : `${d.episodes} episodes`}>{d.episodes === "TBA" ? "EPISODES TBA" : `${d.episodes} EPISODES`}</span></div><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
       {visible.length>12 && <button className="load-more" onClick={()=>setShowAll(v=>!v)}>{showAll?"SHOW LESS":"SHOW ALL "+visible.length+" DRAMAS"} <span>↓</span></button>}
       {visible.length===0 && <div className="no-results">No dramas found. Try another search or filter.</div>}
     </section>
