@@ -95,6 +95,8 @@ const posterOverrides = {
 
 const initialWatched = ["No Tail to Tell","The Remarried Empress","Perfect Crown","The Ordinary Jackpot","Teach You a Lesson","Agent Kim Reactivated"];
 const STORE = "dramaverse-status-v1";
+const PROGRESS_STORE = "dramaverse-progress-v1";
+const FAV_STORE = "dramaverse-favorites-v1";
 
 function App() {
   const [active, setActive] = useState(0);
@@ -106,15 +108,21 @@ function App() {
   const [filter, setFilter] = useState("All");
   const [paused, setPaused] = useState(false);
   const [showAll, setShowAll] = useState(false);
+  const [favorites, setFavorites] = useState(() => { try { return JSON.parse(localStorage.getItem(FAV_STORE) || "[]"); } catch { return []; } });
+  const [progress, setProgress] = useState(() => { try { return JSON.parse(localStorage.getItem(PROGRESS_STORE) || "{}"); } catch { return {}; } });
+  const [touchStart, setTouchStart] = useState(null);
+  const [mobileOnly, setMobileOnly] = useState(false);
 
   const visible = useMemo(() => dramas.filter(d => {
     const s = status[d.title] || "Want to watch";
-    return (year === "All" || String(d.year) === year) &&
+    return (!mobileOnly || favorites.includes(d.title)) && (year === "All" || String(d.year) === year) &&
       (filter === "All" || s === filter) &&
       (d.title.toLowerCase().includes(query.toLowerCase()) || d.genre.toLowerCase().includes(query.toLowerCase()));
-  }), [query, year, filter, status]);
+  }), [query, year, filter, status, mobileOnly, favorites]);
 
   useEffect(() => { localStorage.setItem(STORE, JSON.stringify(status)); }, [status]);
+  useEffect(() => { localStorage.setItem(FAV_STORE, JSON.stringify(favorites)); }, [favorites]);
+  useEffect(() => { localStorage.setItem(PROGRESS_STORE, JSON.stringify(progress)); }, [progress]);
   useEffect(() => {
     if (paused || query || year !== "All" || filter !== "All") return;
     const timer = setInterval(() => setActive(v => (v + 1) % dramas.length), 5600);
@@ -127,6 +135,10 @@ function App() {
 
   const move = (direction) => setActive(v => (v + direction + dramas.length) % dramas.length);
   const setCurrentStatus = (value) => setStatus(old => ({...old, [current.title]: value}));
+  const toggleFavorite = (title) => setFavorites(old => old.includes(title) ? old.filter(x => x !== title) : [...old, title]);
+  const setEpisodeProgress = (title, value) => setProgress(old => ({...old, [title]: Math.max(0, Math.min(999, Number(value) || 0))}));
+  const swipeStart = (e) => setTouchStart(e.touches[0].clientX);
+  const swipeEnd = (e) => { if (touchStart === null) return; const delta=e.changedTouches[0].clientX-touchStart; if(Math.abs(delta)>45) { move(delta<0?1:-1); setPaused(true); } setTouchStart(null); };
 
   const cardStyle = (d, index, offset) => {
     const distance = Math.abs(offset);
@@ -153,7 +165,7 @@ function App() {
     <section className="showcase" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="showcase-glow"></div>
       <div className="carousel-top"><span>01 / FEATURED COLLECTION</span><span className="auto-label"><i></i> {paused ? "PAUSED" : "AUTO PLAY"}</span></div>
-      <div className="carousel-stage">
+      <div className="carousel-stage" onTouchStart={swipeStart} onTouchEnd={swipeEnd}>
         {dramas.map((d,index) => {
           let offset = (index - active + dramas.length) % dramas.length;
           if (offset > dramas.length / 2) offset -= dramas.length;
@@ -171,13 +183,13 @@ function App() {
 
     <section className="featured-details">
       <div className="feature-copy"><div className="feature-meta"><span className="year-pill">{current.year}</span><span>{current.genre}</span></div><h2>{current.title}</h2><p>{current.desc}</p></div>
-      <div className="feature-actions"><label htmlFor="current-status">YOUR WATCH STATUS</label><select id="current-status" value={status[current.title] || "Want to watch"} onChange={e=>setCurrentStatus(e.target.value)}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><button className="details-next" onClick={() => move(1)}>NEXT DRAMA <span>↗</span></button></div>
+      <div className="feature-actions"><button className={favorites.includes(current.title)?"favorite-toggle active":"favorite-toggle"} onClick={()=>toggleFavorite(current.title)}>{favorites.includes(current.title)?"♥ SAVED TO FAVOURITES":"♡ ADD TO FAVOURITES"}</button><label htmlFor="current-status">YOUR WATCH STATUS</label><select id="current-status" value={status[current.title] || "Want to watch"} onChange={e=>setCurrentStatus(e.target.value)}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><label htmlFor="current-episode">EPISODE PROGRESS</label><div className="episode-control"><input id="current-episode" type="number" min="0" max="999" value={progress[current.title] || 0} onChange={e=>setEpisodeProgress(current.title,e.target.value)} /><span>episodes watched</span></div><button className="details-next" onClick={() => move(1)}>NEXT DRAMA <span>↗</span></button></div>
     </section>
 
     <section className="library">
       <div className="library-heading"><div><p className="kicker">THE FULL COLLECTION</p><h2>Explore the library<span>.</span></h2></div><div className="library-count">{visible.length} TITLES FOUND</div></div>
-      <div className="filters"><div className="search-box"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search titles or genres..."/></div><div className="year-filters">{["All","2026","2025","2024","2023"].map(y=><button className={year===y?"selected":""} onClick={()=>setYear(y)} key={y}>{y}</button>)}</div><select className="status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option>All</option><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div>
-      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
+      <div className="filters"><div className="search-box"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search titles or genres..."/></div><div className="year-filters">{["All","2026","2025","2024","2023"].map(y=><button className={year===y?"selected":""} onClick={()=>setYear(y)} key={y}>{y}</button>)}</div><select className="status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option>All</option><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><button className={mobileOnly?"favorite-filter selected":"favorite-filter"} onClick={()=>setMobileOnly(v=>!v)}>♥ FAVOURITES</button></div>
+      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><div className="library-card-tools"><button className={favorites.includes(d.title)?"mini-favorite active":"mini-favorite"} onClick={()=>toggleFavorite(d.title)} aria-label="Toggle favourite">{favorites.includes(d.title)?"♥":"♡"}</button><label className="mini-episode">EP <input aria-label={"Episodes watched for "+d.title} type="number" min="0" max="999" value={progress[d.title] || 0} onChange={e=>setEpisodeProgress(d.title,e.target.value)}/></label></div><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
       {visible.length>12 && <button className="load-more" onClick={()=>setShowAll(v=>!v)}>{showAll?"SHOW LESS":"SHOW ALL "+visible.length+" DRAMAS"} <span>↓</span></button>}
       {visible.length===0 && <div className="no-results">No dramas found. Try another search or filter.</div>}
     </section>
