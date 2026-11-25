@@ -54,6 +54,9 @@ const dramas = [
 ];
 
 const posterOverrides = {
+  "The East Palace": "https://resource02.ulifestyle.com.hk/ulcms/content/article/image/w1280/2026/07/20260708133945_9bb24f8ac765abd9f4f0d9379784e0cde597cf1d.jpg",
+  "The Midnight Studio": "https://image.tmdb.org/t/p/original/9glDgJlg7rczcPAWANH8KJGcnUL.jpg",
+  "Arthdal Chronicles: The Sword of Aramun": "https://entertainimg.kbsmedia.co.kr/cms/uploads/BBSIMAGE_20230808091333_2e9867f41ee9777f964b7b33dfc33d36.jpg",
   "Bon Appétit, Your Majesty": "https://0.soompi.io/wp-content/uploads/2025/07/30013134/bon-appetit.jpeg",
   "My Royal Nemesis": "https://images.plex.tv/photo?scale=2&size=large-480&url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Foriginal%2F1O4z2HMlg0hRPljmAf8TzgUaGls.jpg",
   "Shining": "https://rakyatcirebon.disway.id/upload/390bc7f13a95ba753b9684e1aa16d3dd.jpg",
