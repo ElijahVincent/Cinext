@@ -1,4 +1,4 @@
-name: Build and publish DramaVerse
+name: Build and publish CINEXT
 
 on:
   push:
