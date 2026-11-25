@@ -77,7 +77,7 @@ function App() {
   useEffect(() => { localStorage.setItem(STORE, JSON.stringify(status)); }, [status]);
   useEffect(() => {
     if (paused || query || year !== "All" || filter !== "All") return;
-    const timer = setInterval(() => setActive(v => (v + 1) % dramas.length), 4800);
+    const timer = setInterval(() => setActive(v => (v + 1) % dramas.length), 5600);
     return () => clearInterval(timer);
   }, [paused, query, year, filter]);
 
