@@ -53,6 +53,40 @@ const dramas = [
   {year:2023,title:"See You in My 19th Life",genre:"Reincarnation · Fantasy · Romance",tag:"NINETEEN LIVES",desc:"A woman remembers all her previous lives and tries to reconnect with someone from her eighteenth life.",mood:"romance"}
 ];
 
+const posterOverrides = {
+  "The Haunted Palace": "https://0.soompi.io/wp-content/uploads/2025/03/12200737/the-haunted-palace.jpeg",
+  "Moon River": "https://wimg.mk.co.kr/news/cms/202510/14/news-p.v1.20251014.29221135305d453a86f1714dc732b447_P1.jpeg",
+  "The First Night with the Duke": "https://0.soompi.io/wp-content/uploads/2025/05/30091824/The-First-Night-With-the-Duke_3840x2160_V1.jpg",
+  "Head Over Heels": "https://static.tvmaze.com/uploads/images/original_untouched/575/1439215.jpg",
+  "Twelve": "https://dimg.donga.com/wps/SPORTS/IMAGE/2025/07/17/132017118.1.jpg",
+  "Cashero": "https://pbs.twimg.com/media/G74vdl5asAEw4Vt.jpg",
+  "Genie, Make a Wish": "https://m.media-amazon.com/images/M/MV5BYjU3NjgzOTAtMTYyNy00ZDNmLWE4YWQtODRkZWViNWJhYzgwXkEyXkFqcGc%40._V1_.jpg",
+  "Dear Hongrang": "https://0.soompi.io/wp-content/uploads/2025/05/04130302/dear-hongrang.jpeg",
+  "The Murky Stream": "https://0.soompi.io/wp-content/uploads/2025/12/06002140/murky-stream.jpg",
+  "The Queen Who Crowns": "https://0.soompi.io/wp-content/uploads/2025/01/02233903/queen-who-crowns.jpg",
+  "Love Song for Illusion": "https://64.media.tumblr.com/33f9fd41c92aa1b410bd496baff7d349/ebc4cce06e6fb56b-b5/s1280x1920/9558999ea2bf04f8819649ebc1305a0acd78a955.webp",
+  "Knight Flower": "https://i1.wp.com/kocowablog.imgix.net/2024/02/8-3.jpg?ssl=1",
+  "Captivating the King": "https://cdn.medcom.id/images/library/img/hiburan/2023/Captivating_The_King-p1.jpg",
+  "Queen Woo": "https://images.justwatch.com/poster/323328103/s718/queen-woo.jpg",
+  "The Judge from Hell": "https://image.news.livedoor.com/newsimage/stf/0/3/034b2_1215_06636ad3_034b2d77-sq.jpg",
+  "Lovely Runner": "https://www.filmtv.it/imgbank/articoli/inline/67a9bdea558c4-168767557-0ojb6t.jpg",
+  "The Atypical Family": "https://awsimages.detik.net.id/community/media/visual/2024/05/06/sinopsis-drakor-atypical-family.jpeg?w=1200",
+  "A Shop for Killers": "https://koreanindo.net/wp-content/uploads/2024/03/A-Shop-For-Killers.jpg",
+  "Light Shop": "https://www.mafab.hu/static/2024/336/13/663642_1733142597.6352.jpg",
+  "Marry My Husband": "https://thethaovanhoa.mediacdn.vn/372676912336973824/2023/12/18/5a-17028747739341152483737.jpeg",
+  "Moving": "https://cdns.klimg.com/kapanlagi.com/p/fullsize234photodfghj1713494moving.jpg",
+  "Revenant": "https://m.media-amazon.com/images/M/MV5BZjI1OTVmYmYtMDRiNi00NzcxLWE5YjctOGFlMmNmYzM2OTA4XkEyXkFqcGc%40._V1_.jpg",
+  "Alchemy of Souls: Light and Shadow": "https://www.onbuub.com/sites/default/files/2022-12/%D9%85%D8%B3%D9%84%D8%B3%D9%84-%D8%AE%D9%8A%D9%85%D9%8A%D8%A7%D8%A1%20%D8%A7%D9%84%D8%A3%D8%B1%D9%88%D8%A7%D8%AD-%D8%A7%D9%84%D9%85%D9%84%D8%B5%D9%82%20%D8%A7%D9%84%D8%B1%D8%B3%D9%85%D9%8A%20%D9%84%D9%84%D8%AC%D8%B2%D8%A1%20%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A.jpg",
+  "My Dearest": "https://d263ao8qih4miy.cloudfront.net/wp-content/uploads/2023/07/largephoto1684684.jpg",
+  "Twinkling Watermelon": "https://m.media-amazon.com/images/M/MV5BZDg4MTI4OGQtNzdlYy00NzE4LTlhODYtYTM4MWYyMjQ3MWExXkEyXkFqcGc%40._V1_.jpg",
+  "The Story of Park's Marriage Contract": "https://s3.cosmopolitan.co.id/1703029460.webp",
+  "Island": "https://a.ksd-i.com/a/2023-03-11/146380-967515.jpeg",
+  "My Demon": "https://s1.afisha.ru/mediastorage/30/d8/78bed02352ba4039ad8ac814d830.jpg",
+  "See You in My 19th Life": "https://cdns.klimg.com/kapanlagi.com/p/seeu19klymv5byja3mwe5njctnjdhzs00zmjmlwe.jpg",
+  "If Wishes Could Kill": "https://assets.gadgets360cdn.com/pricee/assets/product/202604/If_Wishes_Could_Kill_1_1775543723.jpg",
+  "The WONDERfools": "https://images.ctfassets.net/4cd45et68cgf/C2sTxgyjJ9Ryrp6AIYZ58/4b832282de14b21060c447c3ec724fd7/en_us_wdf_main_date_announcement_ka_vertical_27x40_rgb_predate_1.jpg?w=1200"
+};
+
 const initialWatched = ["No Tail to Tell","The Remarried Empress","Perfect Crown","The Ordinary Jackpot","Teach You a Lesson","Agent Kim Reactivated"];
 const STORE = "dramaverse-status-v1";
 
@@ -93,7 +127,7 @@ function App() {
     return {
       "--offset": offset,
       "--distance": distance,
-      "--poster": `url("${posters[index % posters.length]}")`,
+      "--poster": `url("${posterOverrides[d.title] || posters[index % posters.length]}")`,
       "--accent": d.mood === "royal" ? "#4b83b5" : d.mood === "fantasy" || d.mood === "epic" ? "#668bd0" : d.mood === "dark" ? "#547b9e" : d.mood === "action" ? "#397eaa" : "#719ec7"
     };
   };
@@ -137,7 +171,7 @@ function App() {
     <section className="library">
       <div className="library-heading"><div><p className="kicker">THE FULL COLLECTION</p><h2>Explore the library<span>.</span></h2></div><div className="library-count">{visible.length} TITLES FOUND</div></div>
       <div className="filters"><div className="search-box"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search titles or genres..."/></div><div className="year-filters">{["All","2026","2025","2024","2023"].map(y=><button className={year===y?"selected":""} onClick={()=>setYear(y)} key={y}>{y}</button>)}</div><select className="status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option>All</option><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div>
-      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
+      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
       {visible.length>12 && <button className="load-more" onClick={()=>setShowAll(v=>!v)}>{showAll?"SHOW LESS":"SHOW ALL "+visible.length+" DRAMAS"} <span>↓</span></button>}
       {visible.length===0 && <div className="no-results">No dramas found. Try another search or filter.</div>}
     </section>
