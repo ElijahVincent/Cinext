@@ -54,6 +54,9 @@ const dramas = [
 ];
 
 const posterOverrides = {
+  "Bon Appétit, Your Majesty": "https://0.soompi.io/wp-content/uploads/2025/07/30013134/bon-appetit.jpeg",
+  "My Royal Nemesis": "https://images.plex.tv/photo?scale=2&size=large-480&url=https%3A%2F%2Fimage.tmdb.org%2Ft%2Fp%2Foriginal%2F1O4z2HMlg0hRPljmAf8TzgUaGls.jpg",
+  "Shining": "https://rakyatcirebon.disway.id/upload/390bc7f13a95ba753b9684e1aa16d3dd.jpg",
   "The Haunted Palace": "https://0.soompi.io/wp-content/uploads/2025/03/12200737/the-haunted-palace.jpeg",
   "Moon River": "https://wimg.mk.co.kr/news/cms/202510/14/news-p.v1.20251014.29221135305d453a86f1714dc732b447_P1.jpeg",
   "The First Night with the Duke": "https://0.soompi.io/wp-content/uploads/2025/05/30091824/The-First-Night-With-the-Duke_3840x2160_V1.jpg",
