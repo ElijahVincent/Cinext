@@ -16,7 +16,7 @@ const posters = [
 
 const dramas = [
   {year:2026,title:"The East Palace",episodes:"TBA",genre:"Historical fantasy · Action · Mystery",tag:"SPIRITS & SWORDS",desc:"A swordsman who hunts spirits and a court lady who hears the dead investigate a curse threatening the royal family.",mood:"fantasy"},
-  {year:2026,title:"My Royal Nemesis",episodes:"TBA",genre:"Fantasy · Comedy · Romance",tag:"A VILLAINESS REBORN",desc:"A Joseon-era villainess finds herself navigating modern life, bringing historical cunning into a contemporary setting.",mood:"romance"},
+  {year:2026,title:"My Royal Nemesis",episodes:14,genre:"Fantasy · Comedy · Romance",tag:"A VILLAINESS REBORN",desc:"A Joseon-era villainess finds herself navigating modern life, bringing historical cunning into a contemporary setting.",mood:"romance"},
   {year:2026,title:"The WONDERfools",episodes:"TBA",genre:"Superpowers · Action · Comedy",tag:"UNEXPECTED POWERS",desc:"Ordinary people unexpectedly gain extraordinary abilities and find themselves in unusual situations.",mood:"action"},
   {year:2026,title:"If Wishes Could Kill",episodes:"TBA",genre:"Supernatural · Thriller",tag:"BE CAREFUL WHAT YOU WISH FOR",desc:"A mysterious app turns wishes into deadly consequences.",mood:"dark"},
   {year:2026,title:"Shining",episodes:"TBA",genre:"Fantasy · Romance",tag:"A LOVE THROUGH TIME",desc:"A time-spanning relationship with an emotional story.",mood:"romance"},
