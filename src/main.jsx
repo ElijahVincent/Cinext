@@ -112,6 +112,7 @@ function App() {
   const [progress, setProgress] = useState(() => { try { return JSON.parse(localStorage.getItem(PROGRESS_STORE) || "{}"); } catch { return {}; } });
   const [touchStart, setTouchStart] = useState(null);
   const [mobileOnly, setMobileOnly] = useState(false);
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const visible = useMemo(() => dramas.filter(d => {
     const s = status[d.title] || "Want to watch";
@@ -183,16 +184,42 @@ function App() {
 
     <section className="featured-details">
       <div className="feature-copy"><div className="feature-meta"><span className="year-pill">{current.year}</span><span>{current.genre}</span></div><h2>{current.title}</h2><p>{current.desc}</p></div>
-      <div className="feature-actions"><button className={favorites.includes(current.title)?"favorite-toggle active":"favorite-toggle"} onClick={()=>toggleFavorite(current.title)}>{favorites.includes(current.title)?"♥ SAVED TO FAVOURITES":"♡ ADD TO FAVOURITES"}</button><label htmlFor="current-status">YOUR WATCH STATUS</label><select id="current-status" value={status[current.title] || "Want to watch"} onChange={e=>setCurrentStatus(e.target.value)}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><label htmlFor="current-episode">EPISODE PROGRESS</label><div className="episode-control"><input id="current-episode" type="number" min="0" max="999" value={progress[current.title] || 0} onChange={e=>setEpisodeProgress(current.title,e.target.value)} /><span>episodes watched</span></div><button className="details-next" onClick={() => move(1)}>NEXT DRAMA <span>↗</span></button></div>
+      <div className="feature-actions"><button className="view-details-button" onClick={()=>setDetailsOpen(true)}>VIEW DRAMA DETAILS <span>↗</span></button><button className={favorites.includes(current.title)?"favorite-toggle active":"favorite-toggle"} onClick={()=>toggleFavorite(current.title)}>{favorites.includes(current.title)?"♥ SAVED TO FAVOURITES":"♡ ADD TO FAVOURITES"}</button><label htmlFor="current-status">YOUR WATCH STATUS</label><select id="current-status" value={status[current.title] || "Want to watch"} onChange={e=>setCurrentStatus(e.target.value)}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><label htmlFor="current-episode">EPISODE PROGRESS</label><div className="episode-control"><input id="current-episode" type="number" min="0" max="999" value={progress[current.title] || 0} onChange={e=>setEpisodeProgress(current.title,e.target.value)} /><span>episodes watched</span></div><button className="details-next" onClick={() => move(1)}>NEXT DRAMA <span>↗</span></button></div>
     </section>
 
     <section className="library">
       <div className="library-heading"><div><p className="kicker">THE FULL COLLECTION</p><h2>Explore the library<span>.</span></h2></div><div className="library-count">{visible.length} TITLES FOUND</div></div>
       <div className="filters"><div className="search-box"><span>⌕</span><input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Search titles or genres..."/></div><div className="year-filters">{["All","2026","2025","2024","2023"].map(y=><button className={year===y?"selected":""} onClick={()=>setYear(y)} key={y}>{y}</button>)}</div><select className="status-filter" value={filter} onChange={e=>setFilter(e.target.value)}><option>All</option><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select><button className={mobileOnly?"favorite-filter selected":"favorite-filter"} onClick={()=>setMobileOnly(v=>!v)}>♥ FAVOURITES</button></div>
-      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><div className="library-card-tools"><button className={favorites.includes(d.title)?"mini-favorite active":"mini-favorite"} onClick={()=>toggleFavorite(d.title)} aria-label="Toggle favourite">{favorites.includes(d.title)?"♥":"♡"}</button><label className="mini-episode">EP <input aria-label={"Episodes watched for "+d.title} type="number" min="0" max="999" value={progress[d.title] || 0} onChange={e=>setEpisodeProgress(d.title,e.target.value)}/></label></div><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
+      <div className="library-grid">{visible.slice(0,showAll?visible.length:12).map(d=><article className="library-card" key={d.title}><button className="mini-poster" style={{"--poster":`url("${posterOverrides[d.title] || posters[dramas.indexOf(d)%posters.length]}")`}} onClick={()=>{setActive(dramas.indexOf(d));window.scrollTo({top:0,behavior:"smooth"});}}><span>{d.year}</span><b>{d.title}</b></button><div className="library-card-info"><strong>{d.title}</strong><small>{d.genre}</small><button className="card-details-link" onClick={()=>{setActive(dramas.indexOf(d));setDetailsOpen(true);}}>VIEW DETAILS ↗</button><div className="library-card-tools"><button className={favorites.includes(d.title)?"mini-favorite active":"mini-favorite"} onClick={()=>toggleFavorite(d.title)} aria-label="Toggle favourite">{favorites.includes(d.title)?"♥":"♡"}</button><label className="mini-episode">EP <input aria-label={"Episodes watched for "+d.title} type="number" min="0" max="999" value={progress[d.title] || 0} onChange={e=>setEpisodeProgress(d.title,e.target.value)}/></label></div><select aria-label={`Status for ${d.title}`} value={status[d.title] || "Want to watch"} onChange={e=>setStatus(old=>({...old,[d.title]:e.target.value}))}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></div></article>)}</div>
       {visible.length>12 && <button className="load-more" onClick={()=>setShowAll(v=>!v)}>{showAll?"SHOW LESS":"SHOW ALL "+visible.length+" DRAMAS"} <span>↓</span></button>}
       {visible.length===0 && <div className="no-results">No dramas found. Try another search or filter.</div>}
     </section>
+    {detailsOpen && <div className="details-backdrop" role="presentation" onClick={()=>setDetailsOpen(false)}>
+      <section className="details-modal" role="dialog" aria-modal="true" aria-labelledby="details-title" onClick={e=>e.stopPropagation()}>
+        <button className="details-close" onClick={()=>setDetailsOpen(false)} aria-label="Close details">×</button>
+        <div className="details-art" style={{"--detail-poster":`url("${posterOverrides[current.title] || posters[active % posters.length]}")`}}>
+          <div className="details-art-shade"></div>
+          <span className="details-eyebrow">DRAMAVERSE • DRAMA GUIDE</span>
+          <div className="details-art-title"><span>{current.tag}</span><h2 id="details-title">{current.title}</h2><p>{current.year} <i>•</i> {current.genre}</p></div>
+        </div>
+        <div className="details-content">
+          <div className="details-section-title"><span>THE STORY</span><span className="details-year">{current.year}</span></div>
+          <p className="details-synopsis">{current.desc}</p>
+          <div className="details-facts">
+            <div><span>GENRES</span><strong>{current.genre.split(" · ").join(" / ")}</strong></div>
+            <div><span>YOUR STATUS</span><strong>{status[current.title] || "Want to watch"}</strong></div>
+            <div><span>EPISODES TRACKED</span><strong>{progress[current.title] || 0} watched</strong></div>
+            <div><span>YOUR LIST</span><strong>{favorites.includes(current.title) ? "♥ Favourite" : "Not favourited"}</strong></div>
+          </div>
+          <div className="details-modal-actions">
+            <button className={favorites.includes(current.title)?"favorite-toggle active":"favorite-toggle"} onClick={()=>toggleFavorite(current.title)}>{favorites.includes(current.title)?"♥ IN YOUR FAVOURITES":"♡ ADD TO FAVOURITES"}</button>
+            <label>WATCH STATUS<select value={status[current.title] || "Want to watch"} onChange={e=>setCurrentStatus(e.target.value)}><option>Want to watch</option><option>Watching</option><option>Watched</option><option>Dropped</option></select></label>
+            <label>EPISODES WATCHED<input type="number" min="0" max="999" value={progress[current.title] || 0} onChange={e=>setEpisodeProgress(current.title,e.target.value)}/></label>
+          </div>
+          <p className="details-note">Personal drama guide • Add your own progress as you watch</p>
+        </div>
+      </section>
+    </div>}
     <footer><a className="brand footer-brand" href="#"><span className="brand-mark">D</span><span>DRAMA<span className="brand-light">VERSE</span></span></a><span>MADE FOR THE NEXT BINGE SESSION.</span><span>YOUR LIST. YOUR PACE.</span></footer>
   </main>;
 }
