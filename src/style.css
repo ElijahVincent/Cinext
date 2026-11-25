@@ -50,3 +50,17 @@ body{background:#eaf5ff;color:#18344d}
 .no-results{color:#66849a;border-color:#a9cfe8}
 footer{border-color:rgba(47,105,145,.18);color:#66849a}
 @media(prefers-reduced-motion:reduce){.poster-card{transition:none!important}}
+
+
+/* Explicit sky palette overrides — keep every legacy red accent out */
+:root{color-scheme:light!important;color:#18344d!important;background:#eaf5ff!important;--red:#398fc8!important;--line:rgba(48,105,145,.17)!important}
+html,body,#root{min-height:100%;background:#eaf5ff!important;color:#18344d!important}
+.app-shell{background:radial-gradient(ellipse at 50% 23%,#fff 0%,#def1ff 40%,#b9dcf5 100%)!important;color:#18344d!important}
+.ambient-one,.ambient-two{background:#8bc9ef!important;opacity:.32!important}
+.brand,.brand-mark,.kicker,.intro-row h1,.intro-row h1 em,.top-links,.live-dot,.auto-label i,.poster-tag,.carousel-progress span,.year-pill,.details-next,.library-heading h2 span,.search-box span,.load-more{--red:#398fc8!important}
+.brand{color:#173650!important}.brand-mark{background:#398fc8!important;color:#fff!important}
+.kicker{color:#347eae!important}.intro-row h1{color:#173650!important}.intro-row h1 em{color:#398fc8!important}
+.live-dot,.auto-label i{background:#398fc8!important;box-shadow:0 0 12px #398fc866!important}
+.carousel-stage{perspective:1400px}
+.poster-card{transition:transform 1.8s cubic-bezier(.16,1,.3,1),opacity 1.8s cubic-bezier(.16,1,.3,1),filter 1.8s cubic-bezier(.16,1,.3,1),box-shadow 1.8s cubic-bezier(.16,1,.3,1)!important;backface-visibility:hidden;transform-style:preserve-3d}
+.poster-image{transition:transform 2s cubic-bezier(.16,1,.3,1)!important}
