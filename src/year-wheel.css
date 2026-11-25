@@ -1,0 +1,4 @@
+.year-wheel{appearance:none;border:0;background:transparent;color:#5d86a2;font:inherit;font-size:9px;font-weight:700;letter-spacing:.14em;padding:5px 7px;margin:-5px -7px;border-radius:6px;cursor:ns-resize;transition:color .25s ease,text-shadow .25s ease,background .25s ease;min-width:42px;text-align:center}
+.year-wheel:hover,.year-wheel:focus-visible{color:#fff;background:rgba(112,184,226,.13);text-shadow:0 0 7px rgba(105,190,244,.7),0 0 16px rgba(255,255,255,.48);outline:none}
+@media(max-width:760px){.year-wheel{font-size:8px;padding:5px 6px}}
+@media(prefers-reduced-motion:reduce){.year-wheel{transition:none}}
