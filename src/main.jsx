@@ -172,7 +172,7 @@ function App() {
   return <main className="app-shell">
     <div className="ambient ambient-one"></div><div className="ambient ambient-two"></div>
     <header className="topbar">
-      <a className="brand" href="#" aria-label="Cine Pro home"><img className="brand-logo" src={`${import.meta.env.BASE_URL}cine-pro-logo-v2.png`} alt="Cine Pro"/></a>
+      <a className="brand" href="#" aria-label="Cine Pro home"><img className="brand-logo" src={`${import.meta.env.BASE_URL}cinepronext.svg`} alt="Cine Pro"/></a>
       <div className="top-links"><span>YOUR PERSONAL DRAMA UNIVERSE</span><span className="live-dot"></span><span className="year-wheel" role="button" tabIndex={0} aria-label={`Selected year ${year}. Scroll to change year`} title="Scroll to change year" onClick={() => setYear("2026")} onWheelCapture={e => { e.preventDefault(); e.stopPropagation(); const current = YEAR_OPTIONS.indexOf(year); const next = ((current < 0 ? 0 : current) + (e.deltaY > 0 ? 1 : -1) + YEAR_OPTIONS.length) % YEAR_OPTIONS.length; setYear(YEAR_OPTIONS[next]); }} onKeyDown={e => { if (e.key === "ArrowDown" || e.key === "ArrowUp" || e.key === "Enter" || e.key === " ") { e.preventDefault(); if (e.key === "Enter" || e.key === " ") { setYear("2026"); return; } const current = YEAR_OPTIONS.indexOf(year); const step = e.key === "ArrowDown" ? 1 : -1; setYear(YEAR_OPTIONS[(Math.max(0, current) + step + YEAR_OPTIONS.length) % YEAR_OPTIONS.length]); } }}>{year === "All" ? "2026" : year}</span></div>
     </header>
 
