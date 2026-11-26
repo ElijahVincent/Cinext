@@ -28,6 +28,7 @@ jobs:
           name: CINEXT-full-project-source
           path: |
             **/*
+            .github/**
             !.git/**
             !node_modules/**
             !dist/**
